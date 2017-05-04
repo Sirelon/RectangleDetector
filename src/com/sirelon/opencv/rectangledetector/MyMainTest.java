@@ -104,7 +104,23 @@ public class MyMainTest {
         if (shouldChangePerspective) {
             dst = changePerspective(corners, dst);
         } else {
-            dst = rotateMat(dst, maxMatOfPoint2f);
+            RotatedRect rotatedRect = Imgproc.minAreaRect(maxMatOfPoint2f);
+
+            double scale = 1.;
+
+            double angle = rotatedRect.angle;
+            if (angle < -45) {
+                angle += 90;
+            }
+
+            // Don't rotate if angle == 0
+            if (angle == 0) {
+                // Just crop and return resulting Mat
+                dst = dst.submat(rect);
+                return dst;
+            }
+
+            dst = rotateMat(dst, angle, scale);
         }
 
         maxMatOfPoint = findCountours(dst);
@@ -303,19 +319,7 @@ public class MyMainTest {
         }
     }
 
-    private static Mat rotateMat(Mat src, MatOfPoint2f maxMatOfPoint2f) {
-        RotatedRect rotatedRect = Imgproc.minAreaRect(maxMatOfPoint2f);
-
-//        double scale = src.width() / rotatedRect.size.width;
-        double scale = 1.;
-
-        double angle = rotatedRect.angle;
-        if (angle < -45) {
-            angle += 90;
-        }
-
-        System.out.println("angle = " + angle);
-
+    private static Mat rotateMat(Mat src, double angle, double scale) {
         Point center = new Point(src.cols() / 2, src.rows() / 2);
         Mat rotated = Imgproc.getRotationMatrix2D(center, angle, scale);
         Mat dst = new Mat();
