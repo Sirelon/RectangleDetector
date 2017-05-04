@@ -16,11 +16,10 @@ import java.util.List;
  */
 public class MyMainTest {
 
-    private static ImgWindow origWnd;
-    private static ImgWindow projWnd;
     private static Mat img;
 
     private static ILogger logger = new ConsoleLogger();
+    private static IView view = new AwtView();
 
     public static void main(String[] args) {
         CVLoader.load();
@@ -30,30 +29,12 @@ public class MyMainTest {
 //        img = Highgui.imread("data/rectPersp.jpg");
 //        img = Highgui.imread("data/test1.png");
 
-        origWnd = ImgWindow.newWindow(img);
-        projWnd = ImgWindow.newWindow();
+        view.showSourceImage(img);
 
-        origWnd.setImage(img);
-
-        while (!projWnd.closed) {
-            Mat proj = detectRect(img);
-//            Mat proj = perpsect(img);
-            if (proj != null) {
-                projWnd.setImage(proj);
-                break;
-            }
+        Mat proj = detectRect(img);
+        if (proj != null) {
+            view.showResultImage(proj);
         }
-
-
-    }
-
-    private static Mat perpsect(Mat img) {
-        int resW = (int) img.size().width;
-        int resH = (int) img.size().height;
-
-        Mat outPutMat = new Mat(resW, resH, CvType.CV_8UC4);
-
-        return null;
     }
 
     public static Mat detectRect(Mat src) {
@@ -69,8 +50,7 @@ public class MyMainTest {
 
         Rect rect = Imgproc.boundingRect(maxMatOfPoint);
 
-        Core.rectangle(dst, rect.tl(), rect.br(), new Scalar(255, 0, 0, 255), 2);
-//        dst = dst.submat(rect);
+        view.drawRectangle(rect);
 
         List<Point> corners = foundCorners(maxMatOfPoint2f);
 
@@ -135,7 +115,7 @@ public class MyMainTest {
         rect = Imgproc.boundingRect(maxMatOfPoint);
         // If new founding rect is not very smaller then first
         if (area1 / rect.area() < 10) {
-            Core.rectangle(dst, rect.tl(), rect.br(), new Scalar(255, 0, 255, 255), 5);
+            view.drawRectangle(rect);
             dst = dst.submat(rect);
         }
 
@@ -150,7 +130,7 @@ public class MyMainTest {
         p3 = corners.get(2);
         p4 = corners.get(3);
 
-        drawPoints(p1, p2, p3, p4);
+        view.drawCircles(p1, p2, p3, p4);
 
         logger.log("p1 = " + p1);
         logger.log("p2 = " + p2);
@@ -233,13 +213,6 @@ public class MyMainTest {
         return corners;
     }
 
-    private static void drawPoints(Point... points) {
-        for (Point point : points) {
-            Core.circle(img, point, 2, new Scalar(255, 255, 0), 2);
-        }
-        origWnd.setImage(img);
-    }
-
     @Nullable
     private static MatOfPoint findCountours(Mat src) {
         Mat blurred = src.clone();
@@ -309,10 +282,7 @@ public class MyMainTest {
         }
 
         /** Draw found contours **/
-//        if (maxId >= 0) {
-//            Imgproc.drawContours(src, contours, maxId, new Scalar(0, 255, 0,
-//                    0), 8);
-//        }
+        view.drawContours(contours, maxId);
 
         if (maxId >= 0) {
             return contours.get(maxId);
