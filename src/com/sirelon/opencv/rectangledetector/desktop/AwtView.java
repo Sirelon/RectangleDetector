@@ -1,6 +1,6 @@
 package com.sirelon.opencv.rectangledetector.desktop;
 
-import com.sirelon.opencv.rectangledetector.IView;
+import com.sirelon.opencv.rectangledetector.core.IView;
 import com.sirelon.opencv.rectangledetector.desktop.util.ImgWindow;
 import com.sun.istack.internal.Nullable;
 import org.opencv.core.*;

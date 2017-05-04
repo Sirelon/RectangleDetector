@@ -1,6 +1,6 @@
 package com.sirelon.opencv.rectangledetector.desktop;
 
-import com.sirelon.opencv.rectangledetector.ILogger;
+import com.sirelon.opencv.rectangledetector.core.ILogger;
 
 /**
  * Created by Sirelon on 04/05/2017.

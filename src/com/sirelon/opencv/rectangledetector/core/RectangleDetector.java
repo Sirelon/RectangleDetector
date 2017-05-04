@@ -1,4 +1,4 @@
-package com.sirelon.opencv.rectangledetector;
+package com.sirelon.opencv.rectangledetector.core;
 
 import com.sun.istack.internal.Nullable;
 import org.opencv.core.*;

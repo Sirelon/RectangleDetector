@@ -1,4 +1,4 @@
-package com.sirelon.opencv.rectangledetector;
+package com.sirelon.opencv.rectangledetector.core;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
