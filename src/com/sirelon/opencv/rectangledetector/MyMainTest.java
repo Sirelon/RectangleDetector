@@ -20,6 +20,8 @@ public class MyMainTest {
     private static ImgWindow projWnd;
     private static Mat img;
 
+    private static ILogger logger = new ConsoleLogger();
+
     public static void main(String[] args) {
         CVLoader.load();
 //        img = Highgui.imread("data/imageRot.jpeg");
@@ -150,10 +152,10 @@ public class MyMainTest {
 
         drawPoints(p1, p2, p3, p4);
 
-        System.out.println("p1 = " + p1);
-        System.out.println("p2 = " + p2);
-        System.out.println("p3 = " + p3);
-        System.out.println("p4 = " + p4);
+        logger.log("p1 = " + p1);
+        logger.log("p2 = " + p2);
+        logger.log("p3 = " + p3);
+        logger.log("p4 = " + p4);
 
         List<Point> target = new ArrayList<>(4);
         target.add(new Point(0, 0));
@@ -174,8 +176,8 @@ public class MyMainTest {
         target.add(new Point(rect.x + rect.width, rect.y + rect.height));
         target.add(new Point(rect.x, rect.y + rect.height));
 
-        System.out.println("rect = " + rect);
-        System.out.println(target);
+        logger.log("rect = " + rect);
+        logger.log(String.valueOf(target));
 
         Mat cornersMat = Converters.vector_Point2f_to_Mat(corners);
         Mat targetMat = Converters.vector_Point2f_to_Mat(target);
