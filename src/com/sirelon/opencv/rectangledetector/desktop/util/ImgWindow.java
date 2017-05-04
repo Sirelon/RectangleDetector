@@ -1,5 +1,5 @@
 
-package com.sirelon.opencv.rectangledetector.util;
+package com.sirelon.opencv.rectangledetector.desktop.util;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;

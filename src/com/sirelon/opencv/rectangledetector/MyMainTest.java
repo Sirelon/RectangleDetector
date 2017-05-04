@@ -1,6 +1,8 @@
 package com.sirelon.opencv.rectangledetector;
 
-import com.sirelon.opencv.rectangledetector.util.CVLoader;
+import com.sirelon.opencv.rectangledetector.desktop.AwtView;
+import com.sirelon.opencv.rectangledetector.desktop.ConsoleLogger;
+import com.sirelon.opencv.rectangledetector.desktop.util.CVLoader;
 import org.opencv.core.Mat;
 import org.opencv.highgui.Highgui;
 /**

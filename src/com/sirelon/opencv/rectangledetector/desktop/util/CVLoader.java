@@ -1,4 +1,4 @@
-package com.sirelon.opencv.rectangledetector.util;
+package com.sirelon.opencv.rectangledetector.desktop.util;
 
 import java.io.File;
 
